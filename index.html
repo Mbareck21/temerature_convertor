@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Temperature Conversion</title>
+		<style>
+			header {
+				background-color: tomato;
+				margin: auto;
+				text-align: center;
+				padding: 1rem;
+				font-size: x-large;
+			}
+			fieldset h1 {
+				background-color: lightblue;
+				width: 100%;
+				text-align: center;
+				border: none;
+			}
+			fieldset {
+				width: 50%;
+				margin: auto;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				gap: 1rem;
+				border: none;
+				font-size: x-large;
+			}
+			div {
+				width: 100%;
+				display: flex;
+				text-align: left;
+			}
+			input,
+			select,
+			span {
+				border-radius: 5px;
+			}
+			button {
+				width: 100%;
+				background-color: lightgreen;
+				border-radius: 1cm;
+				width: 100%;
+				padding: 10px;
+				margin-top: 5px;
+				margin-bottom: 5px;
+				border-color: lightgreen;
+				border-width: 5px;
+				outline-style: solid;
+				font-family: monospace;
+				font-size: large;
+			}
+			select {
+				margin-left: auto;
+				width: 53%;
+				padding: 0.3em;
+				/* border: none; */
+			}
+			input {
+				margin-left: auto;
+				width: 50%;
+				padding: 0.3em;
+				/* border: none; */
+			}
+			span {
+				margin-right: 1rem;
+				padding: 1rem;
+			}
+			#hidden-result {
+				width: 100%;
+				display: none;
+				border-style: dashed;
+				text-align: center;
+			}
+			footer {
+				width: 100%;
+				background-color: tomato;
+				/* margin: auto; */
+				text-align: center;
+				padding: 1rem;
+				font-size: x-large;
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<strong><h1>Temperature Converter</h1></strong>
+		</header>
+		<main>
+			<fieldset>
+				<h1>Conversion Tool</h1>
+				<div class="divOne">
+					<label for="options">Select Starting Unit:</label>
+					<select name="options" id="select" onchange="inptChange()">
+						<option value="">Select One</option>
+						<option value="fahrenheit">Fahrenheit</option>
+						<option value="celsius">Celsius</option>
+					</select>
+				</div>
+				<div class="divTwo">
+					<label for="degrees">Enter Starting Degree:</label>
+					<input type="number" name="degrees" id="degrees" />
+				</div>
+				<button onclick="converter()">Calculate</button>
+				<div id="small-div">
+					<span>Converting to:</span><span id="varSpan"></span>
+				</div>
+
+				<span id="hidden-result"></span>
+			</fieldset>
+		</main>
+		<footer></footer>
+		<script>
+			const converter = () => {
+				const degreesVal = document.querySelector("#degrees").value;
+				const optionVal = document.querySelector("select option:checked");
+
+				const resultSpan = document.querySelector("#hidden-result");
+				if (optionVal.value === "fahrenheit") {
+					resultSpan.style.display = "block";
+					resultSpan.innerHTML = `${getCelsius(degreesVal)} <sup>o</sup> C`;
+					resultSpan.style.backgroundColor = "yellow";
+				} else if (optionVal.value === "celsius") {
+					resultSpan.style.display = "block";
+					resultSpan.innerHTML = `${getFahrenheit(degreesVal)} <sup>o</sup> F`;
+					resultSpan.style.backgroundColor = "tomato";
+				}
+			};
+			function inptChange() {
+				const varSpan = document.querySelector("#varSpan");
+				const optionVal = document.querySelector("select option:checked");
+				optionVal.value === "fahrenheit"
+					? (varSpan.innerHTML = "Fahrenheit")
+					: (varSpan.innerHTML = "Celsius");
+			}
+			const getCelsius = (f) => {
+				return Math.round(((f - 32) * 5) / 9);
+			};
+			const getFahrenheit = (c) => {
+				return Math.round(c * (9 / 5) + 32);
+			};
+			const date = new Date().getFullYear();
+			const footer = (document.querySelector(
+				"footer"
+			).innerHTML = `&copy; ${date} Mohamed. M `);
+		</script>
+	</body>
+</html>
